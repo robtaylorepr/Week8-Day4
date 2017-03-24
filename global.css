@@ -1,0 +1,17 @@
+
+h1 {
+    text-align: center;
+}
+
+.bdy {
+  text-align: center;
+}
+
+.note_body {
+  text-align: left;
+}
+
+.note_entire {
+  border: solid 1px black;
+  text-align: center;
+}
