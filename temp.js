@@ -22,3 +22,9 @@ data = $.ajax({url: all_notes_url,
           })
         })
 })
+
+
+
+if(window.location.href.indexOf('#modal_magic') != -1) {
+  $('#modal_magic').modal('show')
+}
