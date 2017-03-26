@@ -2,11 +2,12 @@ $(document).ready(function(){
 
   api_root       = "https://mysterious-reaches-87253.herokuapp.com/"
   all_notes_url  = api_root + 'api/notes'
-  tag_notes_url  = api_root + '/api/notes/tag/'
+  new_note_url   = api_root + 'api/notes?'
+  tag_notes_url  = api_root + 'api/notes/tag/'
 
 $('#post_note').on('submit', function(ev){
   ev.preventDefault()
-  $.post(api_root + "notes/create?token=" + get_token(), $(this).serialize())
+  $.post(new_note_url + $(this).serialize())
     .done(function(note){
       $('#note_list').prepend(
         note_display(note)
@@ -19,7 +20,8 @@ $(document).on('click', '.tag_link', function(ev){
   ev.preventDefault()
   tag_name = $(ev.target).attr('href')
   console.log($(tag_name).html())
-  populate_notes(tag_name)
+  $('#id_show').empty().append(` : ${tag_name}`)
+  show_all_notes_that_have_specific_tag(tag_name)
 })
 
 function note_display(note) {
@@ -38,7 +40,7 @@ function note_display(note) {
   `
 }
 
-function populate_notes(tag_name) {
+function show_all_notes_that_have_specific_tag(tag_name) {
   $('#note_list').empty()
   $.getJSON(tag_notes_url + tag_name)
     .done(function(response){
@@ -51,7 +53,7 @@ function populate_notes(tag_name) {
   }
 
 
-  function first_load(){
+  function show_all_notes(){
     $('#note_list').empty()
     $.getJSON(all_notes_url)
       .done(function(response){
@@ -66,5 +68,5 @@ function populate_notes(tag_name) {
       })
   }
 
-  first_load()
+  show_all_notes()
 })
